@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>왓챠 인터랙티브 분석: 기술 선구자의 생존 투쟁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Sober Analysis" - A calm and serious palette for data-driven storytelling. -->
+    <!-- Application Structure Plan: The application is designed as a top-to-bottom narrative journey, starting with a powerful summary of the crisis (The 'What'). It then transitions into a dashboard-style analysis of key areas: financial health, market competition, and the core strategic paradox (The 'Why'). This structure allows users to grasp the main problem instantly and then delve into the underlying causes through interactive charts and comparative data. The final section presents future scenarios, providing a clear conclusion to the narrative. This thematic, scrolling structure is more engaging than a simple report and guides the user logically through a complex story. -->
+    <!-- Visualization & Content Choices: 
+        - Goal: Show change over time & compare metrics -> Viz: Dual-axis Bar/Line Chart for financials (Chart.js). Interaction: None, static display for clear historical view. Justification: Effectively shows the widening gap between stagnant revenue and mounting losses.
+        - Goal: Compare competitors -> Viz: Dynamic Bar Chart for market share (Chart.js). Interaction: Buttons to switch between years. Justification: Clearly visualizes Watcha's rapid decline against the rise of competitors like Coupang Play.
+        - Goal: Organize competitor info -> Viz: Interactive HTML grid. Interaction: Clickable tabs for each competitor. Justification: Condenses large amounts of text into a digestible, user-controlled format.
+        - Goal: Explain a core concept -> Viz: HTML/CSS diagram for the "Strategy Paradox". Interaction: None. Justification: A simple visual metaphor is more effective than text alone for explaining the tension between Niche Curation and Mass Market appeal.
+        - Goal: Present future outcomes -> Viz: Styled HTML cards. Interaction: Subtle hover effects. Justification: Cleanly separates and presents the distinct future possibilities.
+        - Library/Method: All charts use Chart.js via Canvas, ensuring no SVG is used. Diagrams and layouts are built with HTML and Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #F9FAFB; color: #1F2937; }
+        .content-section { transition: opacity 0.5s ease-in-out; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { color: #DC2626; border-bottom-color: #DC2626; font-weight: 700; }
+        .nav-button:not(.active) { border-bottom-color: transparent; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 350px; max-height: 50vh; }
+        @media (min-width: 768px) { .chart-container { height: 450px; } }
+        .kpi-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); text-align: center; }
+        .tab-button.active { background-color: #DC2626; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4">
+            <div class="flex justify-center items-center h-16 space-x-4 md:space-x-8 overflow-x-auto">
+                <a href="#hero" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">인트로</a>
+                <a href="#dashboard" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">위기의 대시보드</a>
+                <a href="#strategy" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">전략의 역설</a>
+                <a href="#battlefield" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">OTT 전쟁</a>
+                <a href="#future" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">미래 시나리오</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section id="hero" class="text-center py-16 md:py-24 content-section">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">왓챠, 기술 선구자의 생존 투쟁</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                한때 '한국의 넷플릭스'를 꿈꾸던 데이터 기반의 혁신가. 왓챠는 어떻게 심각한 재정난과 실존적 위기에 직면하게 되었을까? 이 인터랙티브 보고서는 왓챠의 궤적을 추적하며 한국 OTT 전쟁의 냉혹한 현실을 분석합니다.
+            </p>
+        </section>
+
+        <section id="dashboard" class="py-16 content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">위기의 대시보드</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">왓챠의 위기는 숫자로 명확히 드러납니다. 추락하는 매출과 사용자 지표, 그리고 눈덩이처럼 불어난 손실은 회사가 처한 현실을 보여줍니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="kpi-card">
+                    <h3 class="text-lg font-semibold text-gray-500">2023년 영업손실</h3>
+                    <p class="text-4xl font-bold text-red-600 mt-2">221<span class="text-2xl">억원</span></p>
+                    <p class="text-sm text-gray-500 mt-2">매출의 51%에 달하는 규모</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="text-lg font-semibold text-gray-500">자본 총계 (2023년 말)</h3>
+                    <p class="text-4xl font-bold text-red-600 mt-2">-796<span class="text-2xl">억원</span></p>
+                    <p class="text-sm text-gray-500 mt-2">수년째 완전 자본잠식 상태</p>
+                </div>
+                <div class="kpi-card">
+                     <h3 class="text-lg font-semibold text-gray-500">월간 활성 사용자(MAU)</h3>
+                    <p class="text-4xl font-bold text-red-600 mt-2">↓ 급감</p>
+                    <p class="text-sm text-gray-500 mt-2">주요 경쟁사 비교 불가 수준</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg mb-12">
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-2">재무 성과 (2019-2023)</h3>
+                <p class="text-center text-gray-500 mb-6">매출 성장이 정체된 반면, 영업손실은 폭발적으로 증가하며 재무 구조가 붕괴되었습니다.</p>
+                <div class="chart-container">
+                    <canvas id="financialChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-2">주요 OTT 월간 활성 사용자(MAU) 추이</h3>
+                 <p class="text-center text-gray-500 mb-6">경쟁사들이 성장하는 동안 왓챠의 사용자 기반은 급격히 위축되었습니다. 아래 버튼으로 연도별 데이터를 확인하세요.</p>
+                <div class="flex justify-center my-4 space-x-2">
+                    <button id="btn2021" class="px-4 py-2 text-sm font-semibold bg-gray-200 rounded-md transition">2021년</button>
+                    <button id="btn2024" class="px-4 py-2 text-sm font-semibold bg-gray-200 rounded-md transition">2024년</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="mauChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="py-16 content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">전략의 역설: 강점과 약점</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">왓챠의 비극은 가장 큰 강점이 동시에 가장 큰 약점이었다는 점에서 시작됩니다. 기술 기반의 정교한 큐레이션은 충성도 높은 팬덤을 만들었지만, 대중 시장을 사로잡기엔 역부족이었습니다.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-8 border-b md:border-b-0 md:border-r border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl mr-4">💡</span>
+                            <h3 class="text-2xl font-bold">강점: 데이터 기반 큐레이션</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            왓챠의 심장은 7억 개가 넘는 사용자 별점 데이터를 기반으로 한 AI 추천 엔진 '왓챠피디아'입니다. '협업 필터링' 기술을 통해 사용자의 취향을 정확히 예측하고, 숨겨진 명작을 발견하는 '기쁨'을 제공했습니다.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold text-blue-800">'씨네필'이라는 강력한 니치 마켓을 구축하며, 고전, 독립, 예술 영화 애호가들의 절대적인 지지를 받았습니다. HBO 독점 시리즈 또한 해외 드라마 팬들을 끌어모으는 요인이었습니다.</p>
+                        </div>
+                    </div>
+                     <div class="p-8 bg-red-50">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl mr-4">💸</span>
+                            <h3 class="text-2xl font-bold">약점: 자본력의 한계</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            그러나 OTT 시장은 기술이 아닌 '자본'이 지배하는 전쟁터였습니다. 넷플릭스가 수천억을 쏟아붓는 오리지널 콘텐츠 경쟁에서 왓챠는 명함조차 내밀기 어려웠습니다.
+                        </p>
+                        <div class="bg-red-100 border-l-4 border-red-500 p-4 rounded-r-lg">
+                           <p class="font-semibold text-red-800">BL 드라마 <span class="font-bold">'시맨틱 에러'</span>의 성공은 저예산으로 거둔 '전술적 승리'였을 뿐, 지속 가능한 '전략'이 되지 못했습니다. 결국 볼 것이 없는 플랫폼에서 뛰어난 추천은 무의미했습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="battlefield" class="py-16 content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">전장: 거인들과의 싸움</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">한국 OTT 시장은 거대 통신사, 미디어 그룹, 이커머스 기업의 각축장입니다. 강력한 '뒷배'가 없는 유일한 독립 플레이어였던 왓챠의 운명은 정해져 있었을지도 모릅니다.</p>
+            </div>
+
+            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
+                <div class="flex flex-wrap justify-center border-b border-gray-200 mb-6">
+                    <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="netflix">넷플릭스</button>
+                    <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="tving">티빙</button>
+                    <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="coupang">쿠팡플레이</button>
+                    <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="watcha">왓챠</button>
+                </div>
+                
+                <div id="tab-netflix" class="tab-content">
+                    <h3 class="text-2xl font-bold mb-2">Netflix: 글로벌 지배자</h3>
+                    <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 글로벌 본사<br><strong class="text-gray-800">핵심 전략:</strong> 압도적 자본력을 기반으로 한 글로벌 오리지널 콘텐츠 제작 및 유통. '오징어 게임'과 같은 히트작으로 시장 지배력 강화.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 콘텐츠 품질과 규모의 기준을 극도로 높여, 소규모 플레이어의 생존 공간을 없애버림.</p>
+                </div>
+
+                <div id="tab-tving" class="tab-content">
+                    <h3 class="text-2xl font-bold mb-2">Tving: 국내 콘텐츠 강자</h3>
+                    <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> CJ ENM (KT, 네이버 제휴)<br><strong class="text-gray-800">핵심 전략:</strong> CJ ENM의 강력한 콘텐츠 제작 능력과 KBO 독점 중계 등 스포츠 콘텐츠를 결합. 국내 시청자 맞춤형 콘텐츠로 승부.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 국내 대중 시장을 장악하며 왓챠가 니치 시장 밖으로 확장할 기회를 차단함.</p>
+                </div>
+
+                <div id="tab-coupang" class="tab-content">
+                    <h3 class="text-2xl font-bold mb-2">Coupang Play: 이커머스 파괴자</h3>
+                    <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 쿠팡 (이커머스)<br><strong class="text-gray-800">핵심 전략:</strong> '와우 멤버십'의 가치를 높이기 위한 '미끼 상품(Loss Leader)'. OTT 자체의 수익성보다 고객 락인(Lock-in) 효과에 집중. 스포츠, SNL 등 독점 콘텐츠에 막대한 투자.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 시장의 가격 구조를 파괴하고, 자본력으로 사용자를 흡수하며 왓챠의 몰락을 가속화한 결정타가 됨.</p>
+                </div>
+                
+                <div id="tab-watcha" class="tab-content">
+                    <h3 class="text-2xl font-bold mb-2">Watcha: 고독한 기술자</h3>
+                    <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 독립 스타트업<br><strong class="text-gray-800">핵심 전략:</strong> 데이터 기반 추천 기술과 니치 콘텐츠 큐레이션으로 차별화. 자본이 아닌 기술로 경쟁하려 시도.<br><strong class="text-gray-800">현실:</strong> 결국 자본의 벽을 넘지 못하고 모든 경쟁자에게 시장을 내주며 존폐 위기에 몰림.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="py-16 content-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">미래 시나리오</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">감사인의 '의견거절'과 자본잠식 상태에서 왓챠가 마주한 현실적인 미래는 세 가지로 요약됩니다.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-yellow-400">
+                    <h3 class="text-2xl font-bold mb-4">시나리오 1: 헐값 매각 (Fire-Sale)</h3>
+                    <p class="text-gray-600">가장 현실적인 생존 시나리오. 정상 가치 평가는 불가능하며, 기존 투자자들이 손실을 감수하고 왓챠의 기술 자산과 데이터를 노리는 기업에 헐값으로 넘어가는 형태입니다.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-red-600">
+                    <h3 class="text-2xl font-bold mb-4">시나리오 2: 파산 및 해산</h3>
+                    <p class="text-gray-600">신규 투자 유치와 매각이 모두 실패할 경우, 채무를 감당하지 못하고 서비스를 종료, 자산을 청산하는 수순을 밟게 될 가능성입니다.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-blue-400">
+                    <h3 class="text-2xl font-bold mb-4">시나리오 3: 기적적인 턴어라운드</h3>
+                    <p class="text-gray-600">대규모 투자 유치와 부채 구조조정에 성공하고 니치 플랫폼으로 재편되는, 실현 가능성이 매우 희박한 시나리오입니다.</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center py-12 border-t mt-16">
+            <p class="text-gray-500">이 보고서는 제공된 자료를 기반으로 제작된 인터랙티브 분석입니다.</p>
+            <p class="text-sm text-gray-400 mt-2">결론: 기술 혁신만으로는 스트리밍 전쟁의 근본적인 경제학을 극복할 수 없다는 뼈아픈 교훈을 남깁니다.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const financialData = {
+                labels: ['2019', '2020', '2021', '2022', '2023'],
+                revenue: [181, 440, 708, 733, 439],
+                loss: [-155, -154, -248, -555, -221]
+            };
+            
+            const mauData = {
+                '2021': {
+                    labels: ['넷플릭스', '티빙', '웨이브', '왓챠', '쿠팡플레이'],
+                    data: [1117, 329, 319, 139, 150]
+                },
+                '2024': {
+                    labels: ['넷플릭스', '쿠팡플레이', '티빙', '웨이브', '왓챠'],
+                    data: [1129, 805, 551, 399, 54]
+                }
+            };
+
+            let financialChartInstance, mauChartInstance;
+
+            const createFinancialChart = () => {
+                const ctx = document.getElementById('financialChart').getContext('2d');
+                if (financialChartInstance) financialChartInstance.destroy();
+                financialChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: financialData.labels,
+                        datasets: [
+                            {
+                                label: '매출액 (억원)',
+                                data: financialData.revenue,
+                                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: '영업손실 (억원)',
+                                data: financialData.loss,
+                                backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                                type: 'line',
+                                yAxisID: 'y',
+                                borderColor: 'rgba(239, 68, 68, 1)',
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: '금액 (억원)' }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        }
+                    }
+                });
+            };
+
+            const createMauChart = (year) => {
+                const ctx = document.getElementById('mauChart').getContext('2d');
+                const data = mauData[year];
+                if (mauChartInstance) mauChartInstance.destroy();
+                mauChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: '월간 활성 사용자 (만명)',
+                            data: data.data,
+                            backgroundColor: [
+                                'rgba(220, 38, 38, 0.7)',
+                                'rgba(29, 78, 216, 0.7)',
+                                'rgba(4, 120, 87, 0.7)',
+                                'rgba(107, 114, 128, 0.7)',
+                                'rgba(217, 119, 6, 0.7)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: { display: true, text: '사용자 수 (만명)' }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+                
+                document.getElementById('btn2021').classList.toggle('bg-red-600', year === '2021');
+                document.getElementById('btn2021').classList.toggle('text-white', year === '2021');
+                document.getElementById('btn2024').classList.toggle('bg-red-600', year === '2024');
+                document.getElementById('btn2024').classList.toggle('text-white', year === '2024');
+            };
+
+            createFinancialChart();
+            createMauChart('2024');
+            
+            document.getElementById('btn2021').addEventListener('click', () => createMauChart('2021'));
+            document.getElementById('btn2024').addEventListener('click', () => createMauChart('2024'));
+
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.tab;
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if(content.id === `tab-${target}`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            tabs[0].click();
+
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.content-section');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navButtons.forEach(button => {
+                            button.classList.remove('active');
+                            if (button.getAttribute('href').substring(1) === entry.target.id) {
+                                button.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
