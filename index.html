@@ -18,13 +18,13 @@
         - Library/Method: All charts use Chart.js via Canvas, ensuring no SVG is used. Diagrams and layouts are built with HTML and Tailwind CSS. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #F9FAFB; color: #1F2937; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #F9FAFB; color: #1F2937; scroll-behavior: smooth; }
         .content-section { transition: opacity 0.5s ease-in-out; }
         .nav-button { transition: all 0.3s ease; }
         .nav-button.active { color: #DC2626; border-bottom-color: #DC2626; font-weight: 700; }
         .nav-button:not(.active) { border-bottom-color: transparent; }
-        .chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 350px; max-height: 50vh; }
-        @media (min-width: 768px) { .chart-container { height: 450px; } }
+        .chart-container { position: relative; width: 100%; max-width: 1024px; margin: auto; height: 400px; max-height: 50vh; }
+        @media (min-width: 768px) { .chart-container { height: 500px; } }
         .kpi-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); text-align: center; }
         .tab-button.active { background-color: #DC2626; color: white; }
         .tab-content { display: none; }
@@ -34,7 +34,7 @@
 <body class="bg-gray-50">
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4">
+        <nav class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
             <div class="flex justify-center items-center h-16 space-x-4 md:space-x-8 overflow-x-auto">
                 <a href="#hero" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">인트로</a>
                 <a href="#dashboard" class="nav-button text-sm md:text-base font-medium text-gray-600 hover:text-red-600 border-b-2 pb-1">위기의 대시보드</a>
@@ -45,22 +45,22 @@
         </nav>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8">
+    <main class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         
-        <section id="hero" class="text-center py-16 md:py-24 content-section">
+        <section id="hero" class="text-center py-20 md:py-28 content-section">
             <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">왓챠, 기술 선구자의 생존 투쟁</h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p class="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
                 한때 '한국의 넷플릭스'를 꿈꾸던 데이터 기반의 혁신가. 왓챠는 어떻게 심각한 재정난과 실존적 위기에 직면하게 되었을까? 이 인터랙티브 보고서는 왓챠의 궤적을 추적하며 한국 OTT 전쟁의 냉혹한 현실을 분석합니다.
             </p>
         </section>
 
         <section id="dashboard" class="py-16 content-section">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">위기의 대시보드</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">왓챠의 위기는 숫자로 명확히 드러납니다. 추락하는 매출과 사용자 지표, 그리고 눈덩이처럼 불어난 손실은 회사가 처한 현실을 보여줍니다.</p>
+                <p class="mt-4 text-gray-600 max-w-3xl mx-auto">왓챠의 위기는 숫자로 명확히 드러납니다. 추락하는 매출과 사용자 지표, 그리고 눈덩이처럼 불어난 손실은 회사가 처한 현실을 보여줍니다.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div class="kpi-card">
                     <h3 class="text-lg font-semibold text-gray-500">2023년 영업손실</h3>
                     <p class="text-4xl font-bold text-red-600 mt-2">221<span class="text-2xl">억원</span></p>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg mb-12">
+            <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg mb-16">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-2">재무 성과 (2019-2023)</h3>
                 <p class="text-center text-gray-500 mb-6">매출 성장이 정체된 반면, 영업손실은 폭발적으로 증가하며 재무 구조가 붕괴되었습니다.</p>
                 <div class="chart-container">
@@ -100,14 +100,14 @@
         </section>
 
         <section id="strategy" class="py-16 content-section">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">전략의 역설: 강점과 약점</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">왓챠의 비극은 가장 큰 강점이 동시에 가장 큰 약점이었다는 점에서 시작됩니다. 기술 기반의 정교한 큐레이션은 충성도 높은 팬덤을 만들었지만, 대중 시장을 사로잡기엔 역부족이었습니다.</p>
+                <p class="mt-4 text-gray-600 max-w-3xl mx-auto">왓챠의 비극은 가장 큰 강점이 동시에 가장 큰 약점이었다는 점에서 시작됩니다. 기술 기반의 정교한 큐레이션은 충성도 높은 팬덤을 만들었지만, 대중 시장을 사로잡기엔 역부족이었습니다.</p>
             </div>
 
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <div class="p-8 border-b md:border-b-0 md:border-r border-gray-200">
+                    <div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r border-gray-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl mr-4">💡</span>
                             <h3 class="text-2xl font-bold">강점: 데이터 기반 큐레이션</h3>
@@ -119,7 +119,7 @@
                             <p class="font-semibold text-blue-800">'씨네필'이라는 강력한 니치 마켓을 구축하며, 고전, 독립, 예술 영화 애호가들의 절대적인 지지를 받았습니다. HBO 독점 시리즈 또한 해외 드라마 팬들을 끌어모으는 요인이었습니다.</p>
                         </div>
                     </div>
-                     <div class="p-8 bg-red-50">
+                     <div class="p-8 lg:p-12 bg-red-50">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl mr-4">💸</span>
                             <h3 class="text-2xl font-bold">약점: 자본력의 한계</h3>
@@ -136,35 +136,41 @@
         </section>
         
         <section id="battlefield" class="py-16 content-section">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">전장: 거인들과의 싸움</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">한국 OTT 시장은 거대 통신사, 미디어 그룹, 이커머스 기업의 각축장입니다. 강력한 '뒷배'가 없는 유일한 독립 플레이어였던 왓챠의 운명은 정해져 있었을지도 모릅니다.</p>
+                <p class="mt-4 text-gray-600 max-w-3xl mx-auto">한국 OTT 시장은 거대 통신사, 미디어 그룹, 이커머스 기업의 각축장입니다. 강력한 '뒷배'가 없는 유일한 독립 플레이어였던 왓챠의 운명은 정해져 있었을지도 모릅니다.</p>
             </div>
 
             <div class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center border-b border-gray-200 mb-6">
                     <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="netflix">넷플릭스</button>
                     <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="tving">티빙</button>
+                    <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="wavve">웨이브</button>
                     <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="coupang">쿠팡플레이</button>
                     <button class="tab-button px-4 py-3 text-lg font-bold text-gray-600 focus:outline-none" data-tab="watcha">왓챠</button>
                 </div>
                 
-                <div id="tab-netflix" class="tab-content">
+                <div id="tab-netflix" class="tab-content p-4">
                     <h3 class="text-2xl font-bold mb-2">Netflix: 글로벌 지배자</h3>
                     <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 글로벌 본사<br><strong class="text-gray-800">핵심 전략:</strong> 압도적 자본력을 기반으로 한 글로벌 오리지널 콘텐츠 제작 및 유통. '오징어 게임'과 같은 히트작으로 시장 지배력 강화.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 콘텐츠 품질과 규모의 기준을 극도로 높여, 소규모 플레이어의 생존 공간을 없애버림.</p>
                 </div>
 
-                <div id="tab-tving" class="tab-content">
+                <div id="tab-tving" class="tab-content p-4">
                     <h3 class="text-2xl font-bold mb-2">Tving: 국내 콘텐츠 강자</h3>
                     <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> CJ ENM (KT, 네이버 제휴)<br><strong class="text-gray-800">핵심 전략:</strong> CJ ENM의 강력한 콘텐츠 제작 능력과 KBO 독점 중계 등 스포츠 콘텐츠를 결합. 국내 시청자 맞춤형 콘텐츠로 승부.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 국내 대중 시장을 장악하며 왓챠가 니치 시장 밖으로 확장할 기회를 차단함.</p>
                 </div>
 
-                <div id="tab-coupang" class="tab-content">
+                <div id="tab-wavve" class="tab-content p-4">
+                    <h3 class="text-2xl font-bold mb-2">Wavve: 방송 콘텐츠 아카이브</h3>
+                    <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> SK스퀘어, 지상파 3사(KBS, MBC, SBS)<br><strong class="text-gray-800">핵심 전략:</strong> 지상파 방송 콘텐츠의 방대한 라이브러리를 기반으로 한 다시보기 서비스. 오리지널 드라마 투자도 병행.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 전통적인 국내 TV 시청자층을 흡수하고, 국내 방송 콘텐츠 시장에서의 경쟁을 심화시킴.</p>
+                </div>
+
+                <div id="tab-coupang" class="tab-content p-4">
                     <h3 class="text-2xl font-bold mb-2">Coupang Play: 이커머스 파괴자</h3>
                     <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 쿠팡 (이커머스)<br><strong class="text-gray-800">핵심 전략:</strong> '와우 멤버십'의 가치를 높이기 위한 '미끼 상품(Loss Leader)'. OTT 자체의 수익성보다 고객 락인(Lock-in) 효과에 집중. 스포츠, SNL 등 독점 콘텐츠에 막대한 투자.<br><strong class="text-gray-800">왓챠에 미친 영향:</strong> 시장의 가격 구조를 파괴하고, 자본력으로 사용자를 흡수하며 왓챠의 몰락을 가속화한 결정타가 됨.</p>
                 </div>
                 
-                <div id="tab-watcha" class="tab-content">
+                <div id="tab-watcha" class="tab-content p-4">
                     <h3 class="text-2xl font-bold mb-2">Watcha: 고독한 기술자</h3>
                     <p class="text-gray-600"><strong class="text-gray-800">배경:</strong> 독립 스타트업<br><strong class="text-gray-800">핵심 전략:</strong> 데이터 기반 추천 기술과 니치 콘텐츠 큐레이션으로 차별화. 자본이 아닌 기술로 경쟁하려 시도.<br><strong class="text-gray-800">현실:</strong> 결국 자본의 벽을 넘지 못하고 모든 경쟁자에게 시장을 내주며 존폐 위기에 몰림.</p>
                 </div>
@@ -172,11 +178,11 @@
         </section>
 
         <section id="future" class="py-16 content-section">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">미래 시나리오</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">감사인의 '의견거절'과 자본잠식 상태에서 왓챠가 마주한 현실적인 미래는 세 가지로 요약됩니다.</p>
+                <p class="mt-4 text-gray-600 max-w-3xl mx-auto">감사인의 '의견거절'과 자본잠식 상태에서 왓챠가 마주한 현실적인 미래는 세 가지로 요약됩니다.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-12">
                 <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-yellow-400">
                     <h3 class="text-2xl font-bold mb-4">시나리오 1: 헐값 매각 (Fire-Sale)</h3>
                     <p class="text-gray-600">가장 현실적인 생존 시나리오. 정상 가치 평가는 불가능하며, 기존 투자자들이 손실을 감수하고 왓챠의 기술 자산과 데이터를 노리는 기업에 헐값으로 넘어가는 형태입니다.</p>
@@ -192,7 +198,7 @@
             </div>
         </section>
         
-        <footer class="text-center py-12 border-t mt-16">
+        <footer class="text-center py-16 border-t mt-16">
             <p class="text-gray-500">이 보고서는 제공된 자료를 기반으로 제작된 인터랙티브 분석입니다.</p>
             <p class="text-sm text-gray-400 mt-2">결론: 기술 혁신만으로는 스트리밍 전쟁의 근본적인 경제학을 극복할 수 없다는 뼈아픈 교훈을 남깁니다.</p>
         </footer>
